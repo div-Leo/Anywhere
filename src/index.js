@@ -6,7 +6,7 @@ import reducers from './reducers';
 
 import './index.css';
 import App from './containers/App';
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 let store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ &&
   window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -18,4 +18,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// registerServiceWorker();
+registerServiceWorker();

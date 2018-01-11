@@ -2,3 +2,52 @@
   height: 50px
   width: 250px
   background-color: #fff
+
+.autocomplete
+  background: #fff
+  position: relative
+  width: 400px
+  box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
+
+  .cancel
+    position: absolute
+    font-size: 18px
+    z-index: 10
+    top: 9px
+    left: calc(100% - 62px)
+    color: #aaa
+    cursor: pointer
+
+  input
+    padding: 10px 10px
+    font-weight: 300
+    width: 100%
+    border: none
+    outline: none
+    font-size: 18px
+    color: #666
+
+.open
+  display: block !important
+
+.dialog
+  width: 100%
+  display: none
+  min-height: 40px
+  overflow: auto
+  border-top: 1px solid #f4f4f4
+  box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
+
+  div
+    padding: 20px 30px 20px 15px
+    font-size: 18px
+    cursor: pointer
+    transition: all 0.2s
+    box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+
+.dialog div:hover
+  background-color: #111
+  color: #fff

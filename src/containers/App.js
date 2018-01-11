@@ -9,6 +9,20 @@ import Counter from '../presentational/Counter.js';
 import Flight from '../presentational/Flight.js';
 
 class App extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.openDialog = this.openDialog.bind(this);
+  //   (this.getLocation = () => {
+  //     if (navigator.geolocation) {
+  //         navigator.geolocation.getCurrentPosition(this.storePosition);
+  //     }
+  //   })();
+  // }
+  //
+  // storePosition = (pos) =>{
+  //   pos.coords.latitude
+  // }
+
   render() {
     return (
       <div className="App">
