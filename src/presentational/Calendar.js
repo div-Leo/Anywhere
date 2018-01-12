@@ -6,15 +6,14 @@ import nextArr from '../icon/next.png'
 import './Calendar.css';
 
 class Calendar extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       currDay: [new Date().getDate(), new Date().getMonth(), new Date().getFullYear()],
       month: new Date(),
       objDays: {
-        going: null,
-        return: null,
+        going: {d:null, m:null },
+        return: {d:null, m:null },
       },
       selectedDays: [],
     };
@@ -36,21 +35,43 @@ class Calendar extends React.Component {
 
   selectDay(d, m) {
     let day = Number(d.id.split('/')[1])
-    if (!this.state.selectedDays[0]) {
-      this.state.selectedDays[0] = day;
+    let arrDays = [];
+    if (!this.state.objDays.going['d'] || this.state.objDays.going['d'] > day || this.state.objDays.return['d'] === day) {
+      this.state.objDays.going = {m:m, d:day};
+      arrDays.push([m,day])
     } else {
-      this.state.selectedDays[1] = day;
+      this.state.objDays.return = {m:m, d:day};
     }
-    this.state.selectedDays.sort((a, b) => {
-      return a - b;
+    for (var i = this.state.objDays.going['d']; i < this.state.objDays.return['d']+1; i++) {
+      arrDays.push([m,i])
+    }
+    this.setState({
+      selectedDays: arrDays,
     })
-    console.log(this.state.selectedDays);
-    let dRange = this.state.selectedDays;
-    for (var i = dRange[0]; i < dRange[dRange.length-1]+1; i++) {
-      document.getElementById(`${m+'/'+i}`).classList.add("selectDay")
+    console.log(arrDays);
+  }
+
+  resetPick() {
+    this.setState({
+      objDays: {
+        going: {d:null, m:null },
+        return: {d:null, m:null },
+      },
+      selectedDays: [],
+    })
+  }
+
+  dayClass(i, m, y){
+    let classList = 'day'
+    this.state.selectedDays.map((el) => {
+      if (el[0] === m && el[1] === i) {
+        classList += " selectedDay"
+      }
+    })
+    if (i === this.state.currDay[0] && m === this.state.currDay[1] && y === this.state.currDay[2]) {
+      classList += " currDay"
     }
-
-
+    return classList
   }
 
   render() {
@@ -66,9 +87,7 @@ class Calendar extends React.Component {
       monthDays.push(<span className="day">{' '}</span>);
     }
     for (let i = 1; i < daysInMonth[m]+1; i++) {
-      if (i === this.state.currDay[0] && m === this.state.currDay[1] && y === this.state.currDay[2]) {
-        monthDays.push(<span id={m+'/'+i} onClick={(e) => this.selectDay(e.target, m)} className="day currDay">{i}</span>);
-      } else monthDays.push(<span id={m+'/'+i} onClick={(e) => this.selectDay(e.target, m)} className="day">{i}</span>);
+      monthDays.push(<span id={m+'/'+i} onClick={(e) => this.selectDay(e.target, m)} className={this.dayClass(i, m, y)}>{i}</span>);
     }
     return (
       <div id="calendar">
@@ -77,12 +96,21 @@ class Calendar extends React.Component {
           {moment([y, m, 1]).format('MMMM YYYY')}
           <img src={nextArr} className="arrow" onClick={() => this.nextMonth(m, y)}></img>
         </div>
+        <div className="dates">
+          <span className="showDate going">From:
+             {this.state.objDays.going['d'] ? '  ' + this.state.objDays.going['d'] + ' - ' + moment([y, m, 1]).format('MMM') : ''}
+           </span>
+          <span className="showDate return">To:
+             {this.state.objDays.return['d'] ? '  ' + this.state.objDays.return['d'] + ' - ' + moment([y, m, 1]).format('MMM') : ''}
+           </span>
+        </div>
         <div className="weekDays">
           {weekDays.map(day => <span className="weekDay">{day}</span>)}
         </div>
         <div className="days">
           {monthDays}
         </div>
+        <div onClick={() => this.resetPick()}>cancel</div>
       </div>
     );
   }
