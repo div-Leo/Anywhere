@@ -36,18 +36,32 @@ class Calendar extends React.Component {
   selectDay(d, m) {
     let day = Number(d.id.split('/')[1])
     let arrDays = [];
-    if (!this.state.objDays.going['d'] || this.state.objDays.going['d'] > day || this.state.objDays.return['d'] === day) {
+    if ((!this.state.objDays.going['d']
+    || this.state.objDays.going['d'] > day
+    || this.state.objDays.return['d'] === day
+    )&& this.state.objDays.going['m'] >= m) {
       this.state.objDays.going = {m:m, d:day};
       arrDays.push([m,day])
     } else {
       this.state.objDays.return = {m:m, d:day};
     }
-    for (var i = this.state.objDays.going['d']; i < this.state.objDays.return['d']+1; i++) {
-      arrDays.push([m,i])
+
+    if (this.state.objDays.going['m'] < this.state.objDays.return['m']) {
+      for (var i = this.state.objDays.going['d']; i < 32; i++) {
+        arrDays.push([this.state.objDays.going['m'],i])
+      }
+      for (var i = 1; i < this.state.objDays.return['d']+1; i++) {
+        arrDays.push([this.state.objDays.return['m'],i])
+      }
+    } else {
+      for (var i = this.state.objDays.going['d']; i < this.state.objDays.return['d']+1; i++) {
+        arrDays.push([m,i])
+      }
     }
     this.setState({
       selectedDays: arrDays,
     })
+    console.log(this.state.objDays);
     console.log(arrDays);
   }
 
@@ -98,10 +112,12 @@ class Calendar extends React.Component {
         </div>
         <div className="dates">
           <span className="showDate going">From:
-             {this.state.objDays.going['d'] ? '  ' + this.state.objDays.going['d'] + ' - ' + moment([y, m, 1]).format('MMM') : ''}
+             {this.state.objDays.going['d'] ?
+              '  ' + this.state.objDays.going['d'] + ' - ' + moment([y, this.state.objDays.going['m'], 1]).format('MMM') : ''}
            </span>
           <span className="showDate return">To:
-             {this.state.objDays.return['d'] ? '  ' + this.state.objDays.return['d'] + ' - ' + moment([y, m, 1]).format('MMM') : ''}
+             {this.state.objDays.return['d'] ?
+              '  ' + this.state.objDays.return['d'] + ' - ' + moment([y, this.state.objDays.return['m'], 1]).format('MMM') : ''}
            </span>
         </div>
         <div className="weekDays">
