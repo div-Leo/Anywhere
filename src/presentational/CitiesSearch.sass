@@ -3,24 +3,28 @@
   position: relative
   width: 400px
   box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
+  margin: 50px
 
   .cancel
     position: absolute
-    font-size: 18px
+    width: 20px
     z-index: 10
-    top: 9px
-    left: calc(100% - 62px)
+    top: 15px
+    right: 15px
     color: #aaa
     cursor: pointer
 
   input
-    padding: 10px 10px
+    padding: 13px 45px 13px 15px
     font-weight: 300
     width: 100%
     border: none
     outline: none
     font-size: 18px
     color: #111
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
 
 .open
   display: block !important
@@ -30,11 +34,11 @@
   display: none
   min-height: 40px
   overflow: auto
-  border-top: 1px solid #f4f4f4
+  border-top: 2px solid #f4f4f4
   box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
 
   div
-    padding: 20px 30px 20px 15px
+    padding: 10px 30px 10px 15px
     font-size: 18px
     cursor: pointer
     transition: all 0.2s
@@ -44,5 +48,5 @@
     text-overflow: ellipsis
 
 .dialog div:hover
-  background-color: #111
+  background-color: #FE3D61
   color: #fff

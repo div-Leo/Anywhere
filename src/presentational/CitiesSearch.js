@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateCities } from '../actions';
+// import { updateCities } from '../actions';
 import './CitiesSearch.css';
+import x from '../icon/X.png'
 
 class CitiesSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dialogOpen: false,
+      isEmpty: true,
       text: this.props.airport,
+      cities: [],
     };
   }
 
@@ -18,16 +21,24 @@ class CitiesSearch extends React.Component {
       fetch(`${url}?apikey=iCjQ7fLhfy1E3oM1YJO3kJppZtWPTA2L&term=${e.target.value}`)
       .then(response => response.json())
       .then(data => {
-        let cities = [];
+        let newCities = [];
         let i = 0;
         while (i < data.length && i < 5) {
-          cities.push(data[i]);
+          newCities.push(data[i]);
           i++;
         }
-        this.props.updateCities(cities)
+        this.setState({
+          cities: newCities
+        })
       });
     }
-    else this.props.updateCities([])
+    else {
+      this.setState({
+        text: e.target.value,
+        isEmpty: true,
+        cities: []
+      })
+    }
   }, 400)
 
   openDialog() {
@@ -37,25 +48,45 @@ class CitiesSearch extends React.Component {
   }
 
   closeDialog() {
-    this.props.updateCities([])
     this.setState({
-      dialogOpen: false
+      dialogOpen: false,
+      cities: []
+    });
+  }
+
+  clearText() {
+    this.setState({
+      isEmpty: true,
+      text: '',
+      cities: []
     });
   }
 
   render() {
+    let cancel = !this.state.isEmpty ?
+        <img
+          src={x}
+          className="cancel"
+          onClick={() => {
+            this.clearText();
+            // setTimeout(() => this.openDialog(), 25);
+          }}></img> : null;
+
     return (
        <div className="autocomplete">
          <input
            type="text"
            placeholder="From where would you like to leave?"
            value={this.state.text}
-           onChange={(e) => {this.setState({text: e.target.value}); this.searchQuery(e);}}/>
-         {/* {cancel} */}
+           onChange={(e) => {this.setState({text: e.target.value, isEmpty: false}); this.searchQuery(e);}}/>
+           {cancel}
          <div
-           className={this.props.cities[0] ? 'dialog open' : 'dialog'}
+           className={this.state.cities[0] ? 'dialog open' : 'dialog'}
            onClick={(e) => {this.setState({text: e.target.textContent}); this.closeDialog()}}>
-           {this.props.cities.map(val => <div key={val.value}>{JSON.stringify(val.label)}</div>)}
+           {this.state.cities.map(val =>
+             <div key={val.value}>{
+               JSON.stringify(val.label).slice(1, -1)
+             }</div>)}
          </div>
        </div>
     );
@@ -74,12 +105,4 @@ function debounceEvent(fn, delay){
   }
 }
 
-const mapStateToProps = (state) => ({
-  cities: state.citiesList,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  updateCities: (data) => dispatch(updateCities(data))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesSearch);
+export default CitiesSearch;
