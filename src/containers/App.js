@@ -14,11 +14,11 @@ class App extends Component {
     this.state ={
       airport: '',
     };
-    (this.getLocation = () => {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(this.closestAirport);
-      }
-    })();
+    // (this.getLocation = () => {
+    //   if (navigator.geolocation) {
+    //       navigator.geolocation.getCurrentPosition(this.closestAirport);
+    //   }
+    // })();
   }
 
   closestAirport = (position) => {
