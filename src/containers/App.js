@@ -12,13 +12,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state ={
+      page: 0,
+      title: ['Wherever', 'Origin', 'Trip dates', 'Passanger', 'Destination'],
       airport: '',
+      worls: null,
     };
-    // (this.getLocation = () => {
-    //   if (navigator.geolocation) {
-    //       navigator.geolocation.getCurrentPosition(this.closestAirport);
-    //   }
-    // })();
+    (this.getLocation = () => {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.closestAirport);
+      }
+    })();
   }
 
   closestAirport = (position) => {
@@ -34,14 +37,40 @@ class App extends Component {
     }
   }
 
+  updatePage(...args){
+    this.setState({
+      page: args[1]
+    })
+  }
+
+  compToShow(){
+    if (this.state.page === 0) {
+      return
+    }
+    else if (this.state.page === 1) {
+      return <CitiesSearch airport={this.state.airport}/>;
+    }
+    else if (this.state.page === 2) {
+      return <Calendar/>;
+    }
+    else if (this.state.page === 3) {
+      return <Counter/>;
+    }
+    else if (this.state.page === 4) {
+      return <Flight/>;
+    }
+  }
+
+  getZState() {
+    const map = [100, 1200, 2800, 4000, 5600];
+    return map[this.state.page];
+  }
+
   render() {
     return (
-      <div className="App">
-      <World/> {/*world contains clouds and main title, trigger the event to call an other component and regenrate it self.*/}
-      <CitiesSearch airport={this.state.airport}/>
-      <Calendar/>
-      <Counter/>
-      <Flight/>
+      <div id="viewport">
+        <World updateWorld={this.updatePage.bind(this, arguments)} zState={this.getZState()} title={this.state.title[this.state.page]}/>
+        {this.compToShow()}
       </div>
     );
   }

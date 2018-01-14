@@ -1,0 +1,36 @@
+#world
+  position: absolute
+  height: 100vh
+  width: 100vw
+  transform-style: preserve-3d
+  div
+    transform-style: preserve-3d
+
+.cloudBase
+  position: absolute
+  height: 20px
+  width: 20px
+  pointer-events: none
+
+.cloudLayer
+  position: absolute
+  height: 256px
+  width: 256px
+  top: 50%
+  left: 50%
+  margin-top: -128px
+  margin-left: -128px
+  transition: opacity .5s ease-out
+  pointer-events: none
+
+.mainTitle
+  width: 100vw
+  transform-style: preserve-3d
+  // transform: translateZ(-100px)
+
+.mainTitle h1
+  margin-top: 15%
+  text-align: center
+  font-size: 16em
+  font-weight: 900
+  color: #FF5A63

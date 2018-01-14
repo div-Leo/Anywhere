@@ -69,7 +69,6 @@ class CitiesSearch extends React.Component {
           className="cancel"
           onClick={() => {
             this.clearText();
-            // setTimeout(() => this.openDialog(), 25);
           }}></img> : null;
 
     return (

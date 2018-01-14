@@ -36,10 +36,10 @@ class Calendar extends React.Component {
   selectDay(d, m) {
     let day = Number(d.id.split('/')[1])
     let arrDays = [];
-    if ((!this.state.objDays.going['d']
-    || this.state.objDays.going['d'] > day
+    if (!this.state.objDays.going['d']
+    || ( this.state.objDays.going['d'] > day
     || this.state.objDays.return['d'] === day
-    )&& this.state.objDays.going['m'] >= m) {
+    ) && this.state.objDays.going['m'] >= m) {
       this.state.objDays.going = {m:m, d:day};
       arrDays.push([m,day])
     } else {
@@ -98,17 +98,17 @@ class Calendar extends React.Component {
     let wd = firstDay.getDay();
     let monthDays = [];
     for (let i = 0; i < wd; i++) {
-      monthDays.push(<span className="day">{' '}</span>);
+      monthDays.push(<span key={i} className="day">{' '}</span>);
     }
     for (let i = 1; i < daysInMonth[m]+1; i++) {
-      monthDays.push(<span id={m+'/'+i} onClick={(e) => this.selectDay(e.target, m)} className={this.dayClass(i, m, y)}>{i}</span>);
+      monthDays.push(<span key={i} id={m+'/'+i} onClick={(e) => this.selectDay(e.target, m)} className={this.dayClass(i, m, y)}>{i}</span>);
     }
     return (
       <div id="calendar">
         <div className="monthTitle">
-          <img src={prevArr} className="arrow" onClick={() => this.prevMonth(m, y)}></img>
+          <img src={prevArr} className="arrow_calendar" onClick={() => this.prevMonth(m, y)}></img>
           {moment([y, m, 1]).format('MMMM YYYY')}
-          <img src={nextArr} className="arrow" onClick={() => this.nextMonth(m, y)}></img>
+          <img src={nextArr} className="arrow_calendar" onClick={() => this.nextMonth(m, y)}></img>
         </div>
         <div className="dates">
           <span className="showDate going">From:
@@ -121,7 +121,7 @@ class Calendar extends React.Component {
            </span>
         </div>
         <div className="weekDays">
-          {weekDays.map(day => <span className="weekDay">{day}</span>)}
+          {weekDays.map((day, i) => <span key={i} className="weekDay">{day}</span>)}
         </div>
         <div className="days">
           {monthDays}

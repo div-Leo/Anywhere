@@ -1,26 +1,29 @@
 .autocomplete
   background: #fff
-  position: relative
-  width: 400px
+  position: absolute
+  width: 350px
   box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
-  margin: 50px
+  top: 65vh
+  left: 24vw
+  transform: translateZ(150px)
+  z-index: 1000
 
   .cancel
     position: absolute
     width: 20px
     z-index: 10
-    top: 15px
+    top: 10px
     right: 15px
     color: #aaa
     cursor: pointer
 
   input
-    padding: 13px 45px 13px 15px
+    padding: 12px 45px 12px 15px
     font-weight: 300
     width: 100%
     border: none
     outline: none
-    font-size: 18px
+    font-size: 15px
     color: #111
     overflow: hidden
     white-space: nowrap
@@ -38,8 +41,8 @@
   box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
 
   div
-    padding: 10px 30px 10px 15px
-    font-size: 18px
+    padding: 8px 30px 8px 15px
+    font-size: 15px
     cursor: pointer
     transition: all 0.2s
     box-shadow: 0 3px 5px 2px rgba(40,40,40,0.1)
