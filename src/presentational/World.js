@@ -21,11 +21,10 @@ class World extends React.Component {
     let worldH = window.innerHeight;
     let random_x = (Math.random() * ((worldW+100) - 200));
     let random_y = (Math.random() * ((worldH+300) + 200));
-    let random_z = -(arguments[0]) - (Math.random() * (arguments[0] + 2000));
+    let random_z = -(Math.random() * (arguments[0] + 2000 - arguments[0]) + arguments[0]);
     let t = 'translateX(' + random_x + 'px) \
              translateY(' + random_y + 'px) \
              translateZ(' + random_z + 'px)';
-    console.log(t);
     for (let j = 0; j < 5 + Math.round(Math.random() * 5); j++) {
       let random_x = 600 - (Math.random() * 1200);
       let random_y = 500 - (Math.random() * 1000);
@@ -46,38 +45,40 @@ class World extends React.Component {
   }
 
   updateView() {
-    if(this.state.scrollZ > 0){
+    if(this.state.scrollZ > 0 && this.state.scrollZ < 6500){
       this.setState({
         z:'translateZ(' + (this.state.scrollZ) + 'px) '
         // \translateY(' +  (this.state.scrollZ/3) + 'px)
       })
       this.state.change=  true;
+    } else if (this.state.scrollZ > 6500) {
+      this.state.scrollZ = 6500;
     } else {
       this.state.scrollZ = 0;
     }
 
 
-    if (this.state.scrollZ >= 0 && this.state.scrollZ < 1200) {
+    if (this.state.scrollZ >= 0 && this.state.scrollZ < 1500) {
       if (this.state.change) {
         this.props.updateWorld(0)
       }
       this.state.change=  false;
-    } else if (this.state.scrollZ >= 1800 && this.state.scrollZ < 3200) {
+    } else if (this.state.scrollZ >= 1800 && this.state.scrollZ < 3300) {
       if (this.state.change) {
         this.props.updateWorld(1)
       }
       this.state.change=  false;
-    } else if (this.state.scrollZ >= 3200 && this.state.scrollZ < 5200) {
+    } else if (this.state.scrollZ >= 3300 && this.state.scrollZ < 4800) {
       if (this.state.change) {
         this.props.updateWorld(2)
       }
       this.state.change=  false;
-    } else if (this.state.scrollZ >= 5200 && this.state.scrollZ < 7200) {
+    } else if (this.state.scrollZ >= 4800 && this.state.scrollZ < 6300) {
       if (this.state.change) {
         this.props.updateWorld(3)
       }
       this.state.change=  false;
-    } else if (this.state.scrollZ >= 7200 && this.state.scrollZ < 9200) {
+    } else if (this.state.scrollZ >= 6300 && this.state.scrollZ < 7800) {
       if (this.state.change) {
         this.props.updateWorld(4)
       }
@@ -101,7 +102,6 @@ class World extends React.Component {
     window.removeEventListener('mousewheel', this.onContainerMouseWheel.bind(this));
   }
 
-
   componentWillReceiveProps (nextProps) {
    if (this.props.zState !== nextProps.zState) {
      this.setState({
@@ -121,7 +121,7 @@ class World extends React.Component {
     return (
         <div id="world" style={{transform: this.state.z}}>
           { clouds }
-          <div className="mainTitle" style={{transform: `translateZ(-${(this.props.zState)}px)`}}>
+          <div className="mainTitle" style={{transform: `translateZ(-${(this.props.zState + 300 )}px)`}}>
             <h1 >{this.props.title}</h1>
           </div>
         </div>

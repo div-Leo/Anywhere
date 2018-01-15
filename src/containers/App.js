@@ -45,7 +45,7 @@ class App extends Component {
 
   compToShow(){
     if (this.state.page === 0) {
-      return
+      return <div className="heading"><h3>No matter where just go!</h3> </div>
     }
     else if (this.state.page === 1) {
       return <CitiesSearch airport={this.state.airport}/>;
@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   getZState() {
-    const map = [100, 1200, 2800, 4000, 5600];
+    const map = [0, 1800, 3300, 4800, 6400];
     return map[this.state.page];
   }
 
