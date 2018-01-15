@@ -9,11 +9,13 @@ class Counter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      people: 1,
+      people: this.props.people,
     };
   }
+
   oneMore() {
     if (this.state.people < 6) {
+      this.props.updateData('people', this.state.people +1);
       this.setState({
         people: this.state.people +1,
       })
@@ -22,6 +24,7 @@ class Counter extends React.Component {
 
   oneLess() {
     if (this.state.people > 1) {
+      this.props.updateData('people', this.state.people -1);
       this.setState({
         people: this.state.people -1,
       })

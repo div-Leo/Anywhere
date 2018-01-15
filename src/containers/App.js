@@ -6,7 +6,10 @@ import CitiesSearch from '../presentational/CitiesSearch.js';
 import Calendar from '../presentational/Calendar.js';
 import Counter from '../presentational/Counter.js';
 import Flight from '../presentational/Flight.js';
+import Item from '../Item.js';
 import { updateCities } from '../actions';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +19,9 @@ class App extends Component {
       title: ['Wherever', 'Origin', 'Trip dates', 'Passanger', 'Destination'],
       airport: '',
       worls: null,
+      objDays: { going: {d:null, m:null}, return: {d:null, m:null} },
+      selectedDays: [],
+      people: 1,
     };
     (this.getLocation = () => {
       if (navigator.geolocation) {
@@ -43,33 +49,45 @@ class App extends Component {
     })
   }
 
+  updateData = (key, value, flag=false) => {
+    if (flag) {
+      value = Object.assign(this.state.objDays, value)
+    }
+    this.setState({
+      [key]: value
+    })
+  }
+
   compToShow(){
     if (this.state.page === 0) {
       return <div className="heading"><h3>No matter where just go!</h3> </div>
     }
     else if (this.state.page === 1) {
-      return <CitiesSearch airport={this.state.airport}/>;
+      return <CitiesSearch updateData={this.updateData} airport={this.state.airport}/>;
     }
     else if (this.state.page === 2) {
-      return <Calendar/>;
+      return <Calendar updateData={this.updateData} selectedDays={this.state.selectedDays} going={this.state.objDays.going} return={this.state.objDays.return}/>;
     }
     else if (this.state.page === 3) {
-      return <Counter/>;
+      return <Counter updateData={this.updateData} people={this.state.people}/>;
     }
     else if (this.state.page === 4) {
-      return <Flight/>;
+      return <Flight query={{origin:this.state.airport,}}/>;
     }
   }
 
   getZState() {
-    const map = [0, 1800, 3300, 4800, 6400];
+    const map = [-300, 1800, 3300, 4800, 6000];
     return map[this.state.page];
   }
 
   render() {
     return (
       <div id="viewport">
-        <World updateWorld={this.updatePage.bind(this, arguments)} zState={this.getZState()} title={this.state.title[this.state.page]}/>
+          <World
+            updateWorld={this.updatePage.bind(this, arguments)}
+            zState={this.getZState()}
+            title={this.state.title[this.state.page]}/>
         {this.compToShow()}
       </div>
     );

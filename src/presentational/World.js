@@ -1,8 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 import './World.css';
-import cloud from '../images/cloud.png'
+import animation from '../animation'
 import CitiesSearch from '../presentational/CitiesSearch.js';
 import _ from 'lodash' ;
+import cloudImg from '../images/cloud.png';
+import TransitionGroup from 'react-transition-group/TransitionGroup'
 
 class World extends React.Component {
   constructor(props) {
@@ -13,6 +17,7 @@ class World extends React.Component {
       scrollZ: 0,
       clouds: _.range(25).map(this.createCloud.bind(this, this.props.zState)),
     };
+    this.dom = {};
   }
 
   createCloud(i) {
@@ -47,42 +52,36 @@ class World extends React.Component {
   updateView() {
     if(this.state.scrollZ > 0 && this.state.scrollZ < 6500){
       this.setState({
-        z:'translateZ(' + (this.state.scrollZ) + 'px) '
-        // \translateY(' +  (this.state.scrollZ/3) + 'px)
+        z:'translateZ(' + (this.state.scrollZ) + 'px)',
+        // \translateY(' +  (this.state.scrollZ/3) + 'px),
+        change: true
       })
-      this.state.change=  true;
     } else if (this.state.scrollZ > 6500) {
       this.state.scrollZ = 6500;
     } else {
       this.state.scrollZ = 0;
     }
 
+    const levels = new Map([
+      [0, 1800],
+      [1, 3300],
+      [2, 4800],
+      [3, 6300],
+      [4, 7800],
+    ]);
 
-    if (this.state.scrollZ >= 0 && this.state.scrollZ < 1500) {
-      if (this.state.change) {
-        this.props.updateWorld(0)
+    for (let [key, max] of levels) {
+      const min = key - 1 >= 0
+        ? levels.get(key-1)
+        : 0;
+
+      if(this.state.scrollZ >= min && this.state.scrollZ < max) {
+        this.props.updateWorld(key);
+        this.setState({
+          change: false
+        });
+        break;
       }
-      this.state.change=  false;
-    } else if (this.state.scrollZ >= 1800 && this.state.scrollZ < 3300) {
-      if (this.state.change) {
-        this.props.updateWorld(1)
-      }
-      this.state.change=  false;
-    } else if (this.state.scrollZ >= 3300 && this.state.scrollZ < 4800) {
-      if (this.state.change) {
-        this.props.updateWorld(2)
-      }
-      this.state.change=  false;
-    } else if (this.state.scrollZ >= 4800 && this.state.scrollZ < 6300) {
-      if (this.state.change) {
-        this.props.updateWorld(3)
-      }
-      this.state.change=  false;
-    } else if (this.state.scrollZ >= 6300 && this.state.scrollZ < 7800) {
-      if (this.state.change) {
-        this.props.updateWorld(4)
-      }
-      this.state.change=  false;
     }
   }
 
@@ -93,11 +92,19 @@ class World extends React.Component {
   }
 
   componentDidMount () {
+    this.dom.root = ReactDOM.findDOMNode(this);
+    const cl = this.cloudEl;
+    const mt = this.mainTitle;
+    animation.titleTransition(mt);
+    animation.fadeInClouds(cl);
+    console.log('mounted');
     window.addEventListener('DOMMouseScroll', this.onContainerMouseWheel.bind(this));
     window.addEventListener('mousewheel', this.onContainerMouseWheel.bind(this));
   }
 
   componentWillUnmount () {
+    const cl = this.cloudEl;
+    animation.fadeOutClouds(cl);
     window.removeEventListener('DOMMouseScroll', this.onContainerMouseWheel.bind(this));
     window.removeEventListener('mousewheel', this.onContainerMouseWheel.bind(this));
   }
@@ -107,22 +114,25 @@ class World extends React.Component {
      this.setState({
       clouds: _.range(25).map(this.createCloud.bind(this, nextProps.zState)),
      })
+     const cl = this.cloudEl;
+     const mt = this.mainTitle;
+     animation.titleTransition(mt);
+     animation.fadeInClouds(cl);
    }
-}
+  }
 
   render() {
     const clouds = this.state.clouds.map((cloudData, i) => {
       const layers = this.state.clouds[i].layers.map((layerData, j) => {
-          return <img key= {j} className = 'cloudLayer' style={{transform: layerData, opacity:.6}} src='https://img00.deviantart.net/4a93/i/2014/285/8/8/white_clouds_png_image_by_alwa3d-d82mcfo.png'></img>;
+          return <img key= {j} className = 'cloudLayer' style={{transform: layerData, opacity:.6}} src={cloudImg}></img>;
       })
-       return <div key={i} className = 'cloudBase' style={{transform: cloudData.base}}>{layers}</div>
+       return <div ref={c => this.cloudEl = c} key={i} className = 'cloudBase' style={{transform: cloudData.base}}>{layers}</div>
     });
-
     return (
         <div id="world" style={{transform: this.state.z}}>
           { clouds }
           <div className="mainTitle" style={{transform: `translateZ(-${(this.props.zState + 300 )}px)`}}>
-            <h1 >{this.props.title}</h1>
+            <h1 ref={el => this.mainTitle = el} >{this.props.title}</h1>
           </div>
         </div>
     );

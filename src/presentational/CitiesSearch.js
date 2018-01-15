@@ -9,7 +9,7 @@ class CitiesSearch extends React.Component {
     super(props);
     this.state = {
       dialogOpen: false,
-      isEmpty: true,
+      isEmpty: false,
       text: this.props.airport,
       cities: [],
     };
@@ -48,6 +48,7 @@ class CitiesSearch extends React.Component {
   }
 
   closeDialog() {
+    console.log('ehi');
     this.setState({
       dialogOpen: false,
       cities: []
@@ -81,7 +82,11 @@ class CitiesSearch extends React.Component {
            {cancel}
          <div
            className={this.state.cities[0] ? 'dialog open' : 'dialog'}
-           onClick={(e) => {this.setState({text: e.target.textContent}); this.closeDialog()}}>
+           onClick={(e) => {
+             this.setState({text: e.target.textContent});
+             this.props.updateData('airport', e.target.textContent)
+             this.closeDialog()
+           }}>
            {this.state.cities.map(val =>
              <div key={val.value}>{
                JSON.stringify(val.label).slice(1, -1)

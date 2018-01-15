@@ -12,10 +12,10 @@ class Calendar extends React.Component {
       currDay: [new Date().getDate(), new Date().getMonth(), new Date().getFullYear()],
       month: new Date(),
       objDays: {
-        going: {d:null, m:null },
-        return: {d:null, m:null },
+        going: this.props.going,
+        return: this.props.return,
       },
-      selectedDays: [],
+      selectedDays: this.props.selectedDays,
     };
   }
 
@@ -38,12 +38,14 @@ class Calendar extends React.Component {
     let arrDays = [];
     if (!this.state.objDays.going['d']
     || ( this.state.objDays.going['d'] > day
-    || this.state.objDays.return['d'] === day
-    ) && this.state.objDays.going['m'] >= m) {
+    || this.state.objDays.return['d'] === day)
+    && this.state.objDays.going['m'] >= m) {
       this.state.objDays.going = {m:m, d:day};
+      this.props.updateData('objDays', {'going':{m:m, d:day}}, true)
       arrDays.push([m,day])
     } else {
       this.state.objDays.return = {m:m, d:day};
+      this.props.updateData('objDays', {'return':{m:m, d:day}}, true)
     }
 
     if (this.state.objDays.going['m'] < this.state.objDays.return['m']) {
@@ -61,8 +63,7 @@ class Calendar extends React.Component {
     this.setState({
       selectedDays: arrDays,
     })
-    console.log(this.state.objDays);
-    console.log(arrDays);
+    this.props.updateData('selectedDays', arrDays)
   }
 
   resetPick() {
