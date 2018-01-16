@@ -6,9 +6,10 @@ import CitiesSearch from '../presentational/CitiesSearch.js';
 import Calendar from '../presentational/Calendar.js';
 import Counter from '../presentational/Counter.js';
 import Flight from '../presentational/Flight.js';
+import Menu from '../presentational/Menu.js';
 import Item from '../Item.js';
 import { updateCities } from '../actions';
-// import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import animation from '../animation'
 
 
 class App extends Component {
@@ -17,11 +18,13 @@ class App extends Component {
     this.state ={
       page: 0,
       title: ['Wherever', 'Origin', 'Trip dates', 'Passanger', 'Destination'],
-      airport: '',
+      airport: null,
       worls: null,
       objDays: { going: {d:null, m:null}, return: {d:null, m:null} },
       selectedDays: [],
       people: 1,
+      menu: false,
+      destination: null,
     };
     (this.getLocation = () => {
       if (navigator.geolocation) {
@@ -43,12 +46,6 @@ class App extends Component {
     }
   }
 
-  updatePage(...args){
-    this.setState({
-      page: args[1]
-    })
-  }
-
   updateData = (key, value, flag=false) => {
     if (flag) {
       value = Object.assign(this.state.objDays, value)
@@ -59,21 +56,14 @@ class App extends Component {
   }
 
   compToShow(){
-    if (this.state.page === 0) {
-      return <div className="heading"><h3>No matter where just go!</h3> </div>
-    }
-    else if (this.state.page === 1) {
-      return <CitiesSearch updateData={this.updateData} airport={this.state.airport}/>;
-    }
-    else if (this.state.page === 2) {
-      return <Calendar updateData={this.updateData} selectedDays={this.state.selectedDays} going={this.state.objDays.going} return={this.state.objDays.return}/>;
-    }
-    else if (this.state.page === 3) {
-      return <Counter updateData={this.updateData} people={this.state.people}/>;
-    }
-    else if (this.state.page === 4) {
-      return <Flight query={{origin:this.state.airport,}}/>;
-    }
+    const components = [
+      <div className="heading"><h3>No matter where. Just go!</h3> </div>,
+      <CitiesSearch updateData={this.updateData} airport={this.state.airport}/>,
+      <Calendar updateData={this.updateData} selectedDays={this.state.selectedDays} going={this.state.objDays.going} return={this.state.objDays.return}/>,
+      <Counter updateData={this.updateData} people={this.state.people}/>,
+      <Flight query={{origin:this.state.airport}}/>
+    ]
+    return components[this.state.page]
   }
 
   getZState() {
@@ -81,9 +71,33 @@ class App extends Component {
     return map[this.state.page];
   }
 
+  toggleMenu = () => {
+    this.setState({
+      menu: !this.state.menu
+    })
+  }
+
+// QUESTION: how to change this and not binding 'this'? args are still pass?
+  updatePage(...args){
+    this.setState({
+      page: args[1]
+    })
+  }
+
   render() {
     return (
       <div id="viewport">
+          <Menu
+            updateWorld={this.updatePage.bind(this, arguments)}
+            open={this.state.menu}
+            toggleMenu={this.toggleMenu}
+            details={{Home: 'Wherever ', Origin:this.state.airport,
+              Dates: `From ${this.state.objDays.going.d}.${this.state.objDays.going.m}  - To ${this.state.objDays.return.d}.${this.state.objDays.return.m}.`,
+              People: this.state.people,
+              Destination: this.state.destination,
+              }}
+              page={this.state.page}
+            />
           <World
             updateWorld={this.updatePage.bind(this, arguments)}
             zState={this.getZState()}

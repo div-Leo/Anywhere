@@ -1,0 +1,139 @@
+.menu_close
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 1000
+  height: 70px
+  width: 70px
+  background: #FE3D61
+  cursor: pointer
+  padding: 18px 15px
+  transition: all .2s ease
+
+  .hamburger
+    height: 3px
+    width: 35px
+    background-color: white
+    margin: 6px 0
+    transition: all .2s ease
+    pointer-events: none
+
+.menu_open
+  position: absolute
+  top: 0
+  left: 0
+  height: 100vh
+  width: 30vw
+  padding: 30px 20px
+  background: #FE3D61
+  transition: all .2s ease
+  z-index: 998
+
+  .hamburger
+    position: absolute
+    z-index: 999
+    height: 3px
+    width: 35px
+    background-color: white
+    transition: all .2s ease
+    pointer-events: none
+    margin: 10px -5px
+    cursor: pointer
+
+  #hamburger_1
+    transform: rotateZ(-45deg)
+  #hamburger_2
+    display: none
+  #hamburger_3
+    transform: rotateZ(45deg)
+
+/////////////////////////////////////////////////// MENU OPEN
+
+.hamburger_x
+  height: 40px
+  width: 40px
+  cursor: pointer
+
+.menu_container
+  display: flex
+  flex-direction: column
+  margin: 10px 10px
+  color: white
+
+.menu_heading
+  display: flex
+  flex-direction: column
+  margin-bottom: 30px
+
+.menu_heading_title
+  font-size: 3em
+  font-weight: 700
+
+.menu_heading_descr
+  width: 80%
+
+/////////////////////////////////////////////////// BODY
+
+.menu_trip
+  display: flex
+  margin: 30px 0
+
+.menu_trip_line
+  margin-right: 20px
+  width: 3px
+  height: 250px
+  background-color: white
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+.menu_trip_dot
+  margin: -4px
+  width: 10px
+  height: 10px
+  border-radius: 10px
+  background-color: white
+
+.menu_trip_dot--unvisited
+  border: 2px solid white
+  background-color:  #FE3D61
+
+.menu_trip_details
+  margin-top: -8px
+  width: 70%
+  height: 268px
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+.menu_trip_detail_state
+  font-weight: 700
+  cursor: pointer
+
+/////////////////////////////////////////////////// FOOTER
+
+.menu_footer
+  position: absolute
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  height: 100px
+  bottom: 0
+  margin-bottom: 15px
+
+.menu_footer_social
+  margin-left: -20px
+
+.menu_footer_icons
+  height: 25px
+  margin: 0px 20px
+
+.menu_footer_webSite
+  font-size: 1.1em
+  width: 50px
+  &:hover
+    text-decoration: underline
+    cursor: pointer
+
+.menu_footer_rights
+  font-size: .8em

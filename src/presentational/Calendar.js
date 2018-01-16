@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment'
-import prevArr from '../icon/prev.png'
-import nextArr from '../icon/next.png'
+import prevArr from '../icons/prev.png'
+import nextArr from '../icons/next.png'
 
 import './Calendar.css';
 

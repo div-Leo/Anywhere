@@ -1,8 +1,6 @@
 import React from 'react';
 import moment from 'moment'
-// import { connect } from 'react-redux';
-// import { actions } from '../actions';
-import flightPathIcon from '../icon/flight.png'
+import flightPathIcon from '../icons/flight.png'
 import './Flight.css';
 
 class Flight extends React.Component {

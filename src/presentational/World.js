@@ -13,7 +13,7 @@ class World extends React.Component {
     super(props);
     this.state = {
       change: false,
-      z:0,
+      z: -(this.props.zState),
       scrollZ: 0,
       clouds: _.range(25).map(this.createCloud.bind(this, this.props.zState)),
     };
@@ -30,7 +30,7 @@ class World extends React.Component {
     let t = 'translateX(' + random_x + 'px) \
              translateY(' + random_y + 'px) \
              translateZ(' + random_z + 'px)';
-    for (let j = 0; j < 5 + Math.round(Math.random() * 5); j++) {
+    for (let j = 0; j < 2 + Math.round(Math.random() * 5); j++) {
       let random_x = 600 - (Math.random() * 1200);
       let random_y = 500 - (Math.random() * 1000);
       let random_z = 200 - (Math.random() * 300);
@@ -43,7 +43,6 @@ class World extends React.Component {
                translateZ(' + random_z + 'px) \
                rotateZ(' + random_a + 'deg) \
                scale(' + random_s + ')';
-
       layers.push(t);
     }
     return {base: t, layers: layers}
@@ -53,7 +52,6 @@ class World extends React.Component {
     if(this.state.scrollZ > 0 && this.state.scrollZ < 6500){
       this.setState({
         z:'translateZ(' + (this.state.scrollZ) + 'px)',
-        // \translateY(' +  (this.state.scrollZ/3) + 'px),
         change: true
       })
     } else if (this.state.scrollZ > 6500) {

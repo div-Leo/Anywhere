@@ -2,8 +2,8 @@ import React from 'react';
 // import { connect } from 'react-redux';
 // import { actions } from '../actions';
 import './Counter.css';
-import minusArr from '../icon/minus.png'
-import plusArr from '../icon/plus.png'
+import minusArr from '../icons/minus.png'
+import plusArr from '../icons/plus.png'
 
 class Counter extends React.Component {
   constructor(props) {

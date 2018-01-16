@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import { updateCities } from '../actions';
 import './CitiesSearch.css';
-import x from '../icon/X.png'
+import x from '../icons/X.png'
 
 class CitiesSearch extends React.Component {
   constructor(props) {
