@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { updateCities } from '../actions';
 import './CitiesSearch.css';
 import x from '../icons/X.png'
+import animation from '../animation'
 
 class CitiesSearch extends React.Component {
   constructor(props) {
@@ -62,6 +62,11 @@ class CitiesSearch extends React.Component {
     });
   }
 
+  componentDidMount () {
+    const el = this.searchBar;
+    animation.inCitySearch(el);
+  }
+
   render() {
     let cancel = !this.state.isEmpty ?
         <img
@@ -72,7 +77,7 @@ class CitiesSearch extends React.Component {
           }}></img> : null;
 
     return (
-       <div className="autocomplete">
+       <div ref={c => this.searchBar = c} className="autocomplete">
          <input
            type="text"
            placeholder="From where would you like to leave?"

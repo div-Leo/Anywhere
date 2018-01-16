@@ -17,6 +17,28 @@ class World extends React.Component {
       scrollZ: 0,
       clouds: _.range(25).map(this.createCloud.bind(this, this.props.zState)),
     };
+    (function(){
+      var lastTime = 0;
+      var vendors = ['ms', 'moz', 'webkit', 'o'];
+      for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelRequestAnimationFrame = window[vendors[x]+'cancelRequestAnimationFrame'];
+      }
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function(callback, element) {
+          var currTime = new Date().getTime();
+          var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+          var id = window.setTimeout(function() {callback(currTime + timeToCall);}, timeToCall);
+          lastTime = currTime + timeToCall;
+          return id;
+        };
+      }
+      if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function(id) {
+          clearTimeout(id);
+        };
+      }
+    }())
   }
 
   createCloud(i) {
@@ -60,10 +82,10 @@ class World extends React.Component {
     }
 
     const levels = new Map([
-      [0, 1800],
+      [0, 1500],
       [1, 3300],
       [2, 4800],
-      [3, 6000],
+      [3, 6300],
       [4, 7800],
     ]);
 
@@ -107,7 +129,8 @@ class World extends React.Component {
   componentWillReceiveProps (nextProps) {
    if (this.props.zState !== nextProps.zState) {
      this.setState({
-      scrollZ: nextProps.zState,
+       // TODO: fix this
+      // scrollZ: nextProps.zState,
       clouds: _.range(25).map(this.createCloud.bind(this, nextProps.zState)),
       z: `translateZ(${nextProps.zState}px)`,
      })
@@ -126,7 +149,7 @@ class World extends React.Component {
        return <div ref={c => this.cloudEl = c} key={i} className = 'cloudBase' style={{transform: cloudData.base}}>{layers}</div>
     });
     return (
-        <div id="world" style={{transform: this.state.z}}>
+        <div ref={c => this.world = c} id="world" style={{transform: this.state.z}}>
           { clouds }
           <div className="mainTitle" style={{transform: `translateZ(-${(this.props.zState + 300 )}px)`}}>
             <h1 ref={el => this.mainTitle = el} >{this.props.title}</h1>

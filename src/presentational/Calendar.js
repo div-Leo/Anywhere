@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment'
 import prevArr from '../icons/prev.png'
 import nextArr from '../icons/next.png'
+import animation from '../animation'
+
 
 import './Calendar.css';
 
@@ -76,6 +78,12 @@ class Calendar extends React.Component {
     })
   }
 
+  componentDidMount () {
+    const el = this.calendar;
+    animation.inCalendar(el);
+  }
+
+
   dayClass(i, m, y){
     let classList = 'day'
     this.state.selectedDays.map((el) => {
@@ -105,7 +113,7 @@ class Calendar extends React.Component {
       monthDays.push(<span key={i} id={m+'/'+i} onClick={(e) => this.selectDay(e.target, m)} className={this.dayClass(i, m, y)}>{i}</span>);
     }
     return (
-      <div id="calendar">
+      <div id="calendar" ref={c => this.calendar = c}>
         <div className="monthTitle">
           <img src={prevArr} className="arrow_calendar" onClick={() => this.prevMonth(m, y)}></img>
           {moment([y, m, 1]).format('MMMM YYYY')}

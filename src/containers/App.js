@@ -61,8 +61,10 @@ class App extends Component {
       <CitiesSearch updateData={this.updateData} airport={this.state.airport}/>,
       <Calendar updateData={this.updateData} selectedDays={this.state.selectedDays} going={this.state.objDays.going} return={this.state.objDays.return}/>,
       <Counter updateData={this.updateData} people={this.state.people}/>,
-      <Flight query={{origin:this.state.airport}}/>
+      <Flight />
     ]
+
+    
     return components[this.state.page]
   }
 
@@ -76,6 +78,7 @@ class App extends Component {
       menu: !this.state.menu
     })
   }
+
 // QUESTION: where it's better to trigger the animations
 
   updatePage = (key) => {
@@ -96,14 +99,13 @@ class App extends Component {
             updateWorld={this.updatePage}
             open={this.state.menu}
             toggleMenu={this.toggleMenu}
-
             details={{
-                Home: 'Wherever ', Origin:this.state.airport,
+                Home: 'Wherever ',
+                Origin:this.state.airport,
                 Dates: this.showDates(),
                 People: this.state.people,
                 Destination: this.state.destination,
               }}
-
               page={this.state.page}
             />
           <Bookmarks page={this.state.page} pageName={this.state.title[this.state.page]}/>

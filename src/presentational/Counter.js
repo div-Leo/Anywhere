@@ -1,9 +1,9 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-// import { actions } from '../actions';
 import './Counter.css';
 import minusArr from '../icons/minus.png'
 import plusArr from '../icons/plus.png'
+import animation from '../animation'
+
 
 class Counter extends React.Component {
   constructor(props) {
@@ -31,9 +31,14 @@ class Counter extends React.Component {
     }
   }
 
+  componentDidMount () {
+    const el = this.counter;
+    animation.inCounter(el);
+  }
+
   render() {
     return (
-      <div className="counterComp">
+      <div ref={c => this.counter = c} className="counterComp">
         <span className="textCounter">Select passenger n°:  </span>
         <div className="counter">
           <img src={plusArr} className="arrow_counter" onClick={() => this.oneMore()}></img>

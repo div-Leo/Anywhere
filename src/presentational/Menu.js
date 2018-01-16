@@ -73,7 +73,7 @@ const Menu = (props) => {
                   <img className="menu_footer_icons" id="ghIcon" src={ghIcon}  alt="icona github"/>
                 </a>
             </div>
-            <span className="menu_footer_webSite">www.dvtlrd.com</span>
+            <span >Pesonal website: <span className="menu_footer_webSite"> www.dvtlrd.com</span></span>
             <span className="menu_footer_rights">all rights reserved © 2018, Barcellona Leonardo Di Vittorio</span>
           </div>
         </div>

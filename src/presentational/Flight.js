@@ -3,11 +3,15 @@ import moment from 'moment'
 import flightPathIcon from '../icons/flight.png'
 import './Flight.css';
 import mockData from '../mockDataPresentation.js'
+import animation from '../animation'
 
 class Flight extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      flights: [],
+    };
+    // const flights = [];
   }
 
   getDelta(d, depart, obj) {
@@ -20,6 +24,13 @@ class Flight extends React.Component {
     return arrival.utc().format('H:mm');
   }
 
+
+    componentDidMount () {
+      console.log(this.state.flights);
+      const arr = this.state.flights;
+      animation.inMultiAnimation(arr);
+    }
+
   createFlightCard = (obj, i) => {
     let goingDay = obj.depart_date.split('T')[0].split('-')
     let goingHours = obj.depart_date.split('T')[1]
@@ -28,7 +39,7 @@ class Flight extends React.Component {
     let flightDuration = obj.duration.split(':')
 
     return (
-    <div key={i} className="flight_card">
+    <div key={i}   ref={c => this.state.flights[i] = c} className="flight_card">
       <div className="flight_destination">
         {obj.city_name}
       </div>
@@ -75,9 +86,11 @@ class Flight extends React.Component {
         <div className="flight_price">
           {obj.price} €
         </div>
-        <div className="flight_book">
+        <a href='https://www.expedia.it/Flight-Information?continuationId=e8786ad7-4f95-4859-b149-7d73b69ae185&rfrr=&superlativeMessages[0]=BV,CP,ST&superlativeMessages[1]=BV,CP,ST&udpDisplayMode=showhotelbanneronly'
+         className="flight_book"
+         target="_blank" >
           book
-        </div>
+        </a>
       </div>
     </div>
   )}
