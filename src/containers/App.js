@@ -61,15 +61,13 @@ class App extends Component {
       <CitiesSearch updateData={this.updateData} airport={this.state.airport}/>,
       <Calendar updateData={this.updateData} selectedDays={this.state.selectedDays} going={this.state.objDays.going} return={this.state.objDays.return}/>,
       <Counter updateData={this.updateData} people={this.state.people}/>,
-      <Flight />
+      <Flight updateData={this.updateData}/>
     ]
-
-    
     return components[this.state.page]
   }
 
   getZState() {
-    const map = [-300, 1800, 3300, 4800, 6000];
+    const map = [-300, 1800, 3300, 4800, 6200];
     return map[this.state.page];
   }
 
@@ -78,8 +76,6 @@ class App extends Component {
       menu: !this.state.menu
     })
   }
-
-// QUESTION: where it's better to trigger the animations
 
   updatePage = (key) => {
     this.setState({
@@ -108,7 +104,14 @@ class App extends Component {
               }}
               page={this.state.page}
             />
-          <Bookmarks page={this.state.page} pageName={this.state.title[this.state.page]}/>
+          <Bookmarks page={this.state.page} details={[
+              'Wherever ',
+              this.state.airport,
+              this.showDates(),
+              this.state.people,
+              this.state.destination,
+            ]}
+            pageName={this.state.title[this.state.page]}/>
           <World
             updateWorld={this.updatePage}
             zState={this.getZState()}

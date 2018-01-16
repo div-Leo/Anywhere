@@ -85,7 +85,7 @@ class World extends React.Component {
       [0, 1500],
       [1, 3300],
       [2, 4800],
-      [3, 6300],
+      [3, 6200],
       [4, 7800],
     ]);
 
@@ -93,7 +93,6 @@ class World extends React.Component {
       const min = key - 1 >= 0
         ? levels.get(key-1)
         : 0;
-
       if(this.state.scrollZ >= min && this.state.scrollZ < max) {
         this.props.updateWorld(key);
         this.setState({
@@ -120,8 +119,6 @@ class World extends React.Component {
   }
 
   componentWillUnmount () {
-    const cl = this.cloudEl;
-    animation.fadeOutClouds(cl);
     window.removeEventListener('DOMMouseScroll', this.onContainerMouseWheel.bind(this));
     window.removeEventListener('mousewheel', this.onContainerMouseWheel.bind(this));
   }
@@ -129,15 +126,10 @@ class World extends React.Component {
   componentWillReceiveProps (nextProps) {
    if (this.props.zState !== nextProps.zState) {
      this.setState({
-       // TODO: fix this
-      // scrollZ: nextProps.zState,
+      scrollZ: nextProps.zState,
       clouds: _.range(25).map(this.createCloud.bind(this, nextProps.zState)),
       z: `translateZ(${nextProps.zState}px)`,
      })
-     const cl = this.cloudEl;
-     const mt = this.mainTitle;
-     animation.titleTransition(mt);
-     animation.fadeInClouds(cl);
    }
   }
 

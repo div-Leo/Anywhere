@@ -9,9 +9,9 @@ class Flight extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      load: false,
       flights: [],
     };
-    // const flights = [];
   }
 
   getDelta(d, depart, obj) {
@@ -23,13 +23,6 @@ class Flight extends React.Component {
     var arrival = moment(startdate).add(Number(d[0]), 'h').add(Number(d[1]), 'm');
     return arrival.utc().format('H:mm');
   }
-
-
-    componentDidMount () {
-      console.log(this.state.flights);
-      const arr = this.state.flights;
-      animation.inMultiAnimation(arr);
-    }
 
   createFlightCard = (obj, i) => {
     let goingDay = obj.depart_date.split('T')[0].split('-')
@@ -86,7 +79,7 @@ class Flight extends React.Component {
         <div className="flight_price">
           {obj.price} €
         </div>
-        <a href='https://www.expedia.it/Flight-Information?continuationId=e8786ad7-4f95-4859-b149-7d73b69ae185&rfrr=&superlativeMessages[0]=BV,CP,ST&superlativeMessages[1]=BV,CP,ST&udpDisplayMode=showhotelbanneronly'
+        <a onClick={() => this.props.updateData('destination', obj.city_name)} href='https://www.expedia.it/Flight-Information?continuationId=e8786ad7-4f95-4859-b149-7d73b69ae185&rfrr=&superlativeMessages[0]=BV,CP,ST&superlativeMessages[1]=BV,CP,ST&udpDisplayMode=showhotelbanneronly'
          className="flight_book"
          target="_blank" >
           book
@@ -95,10 +88,26 @@ class Flight extends React.Component {
     </div>
   )}
 
+  componentWillUpdate(nextProps) {
+   if (this.props.zState !== nextProps.zState) {
+     console.log('egolo');
+     const arr = this.state.flights;
+     animation.inMultiAnimation(arr);
+   }
+  }
+
   render() {
     return (
-      <div className="flights_container">
-        {mockData.map((obj, i) => this.createFlightCard(obj, i))}
+      <div className="flights_container" style={this.state.load === true ? {overflowX: 'scroll', overflowY: 'hidden'} : null}>
+        {this.state.load === true ?
+          mockData.map((obj, i) => this.createFlightCard(obj, i))
+         : <div id="loading" action={setTimeout(() => {
+           this.setState({
+             load: true
+           })
+           // const arr = this.state.flights;
+           // animation.inMultiAnimation(arr);
+         }, 3000)}></div>}
       </div>
     );
   }

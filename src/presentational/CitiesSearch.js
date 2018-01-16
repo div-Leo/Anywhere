@@ -62,6 +62,13 @@ class CitiesSearch extends React.Component {
     });
   }
 
+  componentWillReceiveProps (nextProps) {
+   if (this.props.zState !== nextProps.zState) {
+     const el = this.searchBar;
+     animation.outAnimation(el);
+   }
+  }
+
   componentDidMount () {
     const el = this.searchBar;
     animation.inCitySearch(el);
