@@ -48,7 +48,6 @@ class CitiesSearch extends React.Component {
   }
 
   closeDialog() {
-    console.log('ehi');
     this.setState({
       dialogOpen: false,
       cities: []

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import './App.css';
 import World from '../presentational/World.js';
 import CitiesSearch from '../presentational/CitiesSearch.js';
+import Bookmarks from '../presentational/Bookmarks.js';
 import Calendar from '../presentational/Calendar.js';
 import Counter from '../presentational/Counter.js';
 import Flight from '../presentational/Flight.js';
 import Menu from '../presentational/Menu.js';
-import Item from '../Item.js';
 import { updateCities } from '../actions';
 import animation from '../animation'
 
@@ -76,33 +76,42 @@ class App extends Component {
       menu: !this.state.menu
     })
   }
+// QUESTION: where it's better to trigger the animations
 
-// QUESTION: how to change this and not binding 'this'? args are still pass?
-  updatePage(...args){
+  updatePage = (key) => {
     this.setState({
-      page: args[1]
+      page: key
     })
+  }
+
+  showDates() {
+    if(this.state.objDays.going.d === null || this.state.objDays.return.d === null) return null;
+    return `From ${this.state.objDays.going.d}.${this.state.objDays.going.m}  - To ${this.state.objDays.return.d}.${this.state.objDays.return.m}`;
   }
 
   render() {
     return (
       <div id="viewport">
           <Menu
-            updateWorld={this.updatePage.bind(this, arguments)}
+            updateWorld={this.updatePage}
             open={this.state.menu}
             toggleMenu={this.toggleMenu}
-            details={{Home: 'Wherever ', Origin:this.state.airport,
-              Dates: `From ${this.state.objDays.going.d}.${this.state.objDays.going.m}  - To ${this.state.objDays.return.d}.${this.state.objDays.return.m}.`,
-              People: this.state.people,
-              Destination: this.state.destination,
+
+            details={{
+                Home: 'Wherever ', Origin:this.state.airport,
+                Dates: this.showDates(),
+                People: this.state.people,
+                Destination: this.state.destination,
               }}
+
               page={this.state.page}
             />
+          <Bookmarks page={this.state.page} pageName={this.state.title[this.state.page]}/>
           <World
-            updateWorld={this.updatePage.bind(this, arguments)}
+            updateWorld={this.updatePage}
             zState={this.getZState()}
             title={this.state.title[this.state.page]}/>
-        {this.compToShow()}
+          {this.compToShow()}
       </div>
     );
   }

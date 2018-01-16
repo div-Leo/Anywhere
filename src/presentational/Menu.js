@@ -20,7 +20,7 @@ const Menu = (props) => {
     props.toggleMenu()
     props.updateWorld(page)
   }
-// QUESTION: this is not working as i'd like it does
+
   const renderMenu = (open) => {
     return open === true
     ? (
@@ -42,16 +42,20 @@ const Menu = (props) => {
               {_.range(5).map((el, i) => <div key={i} className={el <= props.page ? 'menu_trip_dot' : 'menu_trip_dot menu_trip_dot--unvisited'}></div>)}
             </div>
             <div className='menu_trip_details'>
+
+
               {Object.keys(props.details).map((key, i) => props.details[key]  !== null ?
-              <div>
+              <div key={i}>
                 <span key={key} className='menu_trip_detail_name'>{key + ': '}</span>
                 <span onClick={() => updatePage(i)} key={i} className='menu_trip_detail_state'>{props.details[key]}</span>
               </div> :
-              <div>
+              <div key={i}>
                 <span key={key} className='menu_trip_detail_name'>{key + ': '}</span>
                 <span key={i} className='menu_trip_detail_state'>...</span>
               </div>
               )}
+
+
             </div>
           </div>
           <div className='menu_footer'>

@@ -13,11 +13,10 @@ class World extends React.Component {
     super(props);
     this.state = {
       change: false,
-      z: -(this.props.zState),
+      z: 0,
       scrollZ: 0,
       clouds: _.range(25).map(this.createCloud.bind(this, this.props.zState)),
     };
-    this.dom = {};
   }
 
   createCloud(i) {
@@ -64,7 +63,7 @@ class World extends React.Component {
       [0, 1800],
       [1, 3300],
       [2, 4800],
-      [3, 6300],
+      [3, 6000],
       [4, 7800],
     ]);
 
@@ -90,12 +89,10 @@ class World extends React.Component {
   }
 
   componentDidMount () {
-    this.dom.root = ReactDOM.findDOMNode(this);
     const cl = this.cloudEl;
     const mt = this.mainTitle;
     animation.titleTransition(mt);
     animation.fadeInClouds(cl);
-    console.log('mounted');
     window.addEventListener('DOMMouseScroll', this.onContainerMouseWheel.bind(this));
     window.addEventListener('mousewheel', this.onContainerMouseWheel.bind(this));
   }
@@ -110,7 +107,9 @@ class World extends React.Component {
   componentWillReceiveProps (nextProps) {
    if (this.props.zState !== nextProps.zState) {
      this.setState({
+      scrollZ: nextProps.zState,
       clouds: _.range(25).map(this.createCloud.bind(this, nextProps.zState)),
+      z: `translateZ(${nextProps.zState}px)`,
      })
      const cl = this.cloudEl;
      const mt = this.mainTitle;
