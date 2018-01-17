@@ -15,21 +15,6 @@ const results = [
     "actual": true
   },
   {
-    "city_name": "Milan",
-    "price": 28.93,
-    "trip_class": 0,
-    "show_to_affiliates": true,
-    "return_date": "2018-01-22T07:15",
-    "origin": "BCN",
-    "number_of_changes": 1,
-    "gate": "Airtickets",
-    "found_at": "2018-01-11T07:57:39",
-    "destination": "MIL",
-    "duration": "1:20",
-    "depart_date": "2018-01-18T18:30",
-    "actual": true
-  },
-  {
     "city_name": "London",
     "price": 64.54,
     "trip_class": 0,
@@ -42,6 +27,21 @@ const results = [
     "destination": "LON",
     "duration": "2:00",
     "depart_date": "2018-01-18T14:45",
+    "actual": true
+  },
+  {
+    "city_name": "Milan",
+    "price": 28.93,
+    "trip_class": 0,
+    "show_to_affiliates": true,
+    "return_date": "2018-01-22T07:15",
+    "origin": "BCN",
+    "number_of_changes": 1,
+    "gate": "Airtickets",
+    "found_at": "2018-01-11T07:57:39",
+    "destination": "MIL",
+    "duration": "1:20",
+    "depart_date": "2018-01-18T18:30",
     "actual": true
   },
   {

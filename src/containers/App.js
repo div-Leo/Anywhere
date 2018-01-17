@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import './App.css';
 import World from '../presentational/World.js';
 import CitiesSearch from '../presentational/CitiesSearch.js';
@@ -8,8 +7,6 @@ import Calendar from '../presentational/Calendar.js';
 import Counter from '../presentational/Counter.js';
 import Flight from '../presentational/Flight.js';
 import Menu from '../presentational/Menu.js';
-import { updateCities } from '../actions';
-import animation from '../animation'
 
 
 class App extends Component {
@@ -122,12 +119,5 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  cities: state.citiesList,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCities: (data) => dispatch(updateCities(data))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

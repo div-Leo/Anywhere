@@ -51,14 +51,14 @@ class Calendar extends React.Component {
     }
 
     if (this.state.objDays.going['m'] < this.state.objDays.return['m']) {
-      for (var i = this.state.objDays.going['d']; i < 32; i++) {
+      for (let i = this.state.objDays.going['d']; i < 32; i++) {
         arrDays.push([this.state.objDays.going['m'],i])
       }
-      for (var i = 1; i < this.state.objDays.return['d']+1; i++) {
+      for (let i = 1; i < this.state.objDays.return['d']+1; i++) {
         arrDays.push([this.state.objDays.return['m'],i])
       }
     } else {
-      for (var i = this.state.objDays.going['d']; i < this.state.objDays.return['d']+1; i++) {
+      for (let i = this.state.objDays.going['d']; i < this.state.objDays.return['d']+1; i++) {
         arrDays.push([m,i])
       }
     }
@@ -84,7 +84,7 @@ class Calendar extends React.Component {
   }
 
 
-  dayClass(i, m, y){
+  dayClass (i, m, y){
     let classList = 'day'
     this.state.selectedDays.map((el) => {
       if (el[0] === m && el[1] === i) {
@@ -115,9 +115,9 @@ class Calendar extends React.Component {
     return (
       <div id="calendar" ref={c => this.calendar = c}>
         <div className="monthTitle">
-          <img src={prevArr} className="arrow_calendar" onClick={() => this.prevMonth(m, y)}></img>
+          <img alt="arrow icon" src={prevArr} className="arrow_calendar" onClick={() => this.prevMonth(m, y)}></img>
           {moment([y, m, 1]).format('MMMM YYYY')}
-          <img src={nextArr} className="arrow_calendar" onClick={() => this.nextMonth(m, y)}></img>
+          <img alt="arrow icon" src={nextArr} className="arrow_calendar" onClick={() => this.nextMonth(m, y)}></img>
         </div>
         <div className="dates">
           <span className="showDate going">From:

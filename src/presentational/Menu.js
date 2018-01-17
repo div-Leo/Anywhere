@@ -60,16 +60,16 @@ const Menu = (props) => {
           </div>
           <div className='menu_footer'>
             <div className='menu_footer_social'>
-                <a className="socialBtn" href="https://www.facebook.com/leonardo.divittorio" target="_blank">
+                <a className="socialBtn" href="https://www.facebook.com/leonardo.divittorio" rel="noopener noreferrer" target="_blank">
                   <img className="menu_footer_icons" id="fbIcon" src={fbIcon} alt="icona facebook"/>
                 </a>
-                <a className="socialBtn" href="https://www.behance.net/leonardodid6d0" target="_blank">
+                <a className="socialBtn" href="https://www.behance.net/leonardodid6d0" rel="noopener noreferrer" target="_blank">
                   <img className="menu_footer_icons" id="beIcon" src={beIcon}  alt="icona instagram"/>
                 </a>
-                <a className="socialBtn" href="https://www.linkedin.com/in/leonardo-di-vittorio-092679a6/gi" target="_blank">
+                <a className="socialBtn" href="https://www.linkedin.com/in/leonardo-di-vittorio-092679a6/gi" rel="noopener noreferrer" target="_blank">
                   <img className="menu_footer_icons" id="inIcon" src={inIcon}  alt="icona linkedin"/>
                 </a>
-                <a className="socialBtn" href="https://github.com/Leon31" target="_blank">
+                <a className="socialBtn" href="https://github.com/Leon31" rel="noopener noreferrer" target="_blank">
                   <img className="menu_footer_icons" id="ghIcon" src={ghIcon}  alt="icona github"/>
                 </a>
             </div>

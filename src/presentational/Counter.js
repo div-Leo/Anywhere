@@ -41,9 +41,9 @@ class Counter extends React.Component {
       <div ref={c => this.counter = c} className="counterComp">
         <span className="textCounter">Select passenger n°:  </span>
         <div className="counter">
-          <img src={plusArr} className="arrow_counter" onClick={() => this.oneMore()}></img>
+          <img alt="arrow" src={plusArr} className="arrow_counter" onClick={() => this.oneMore()}></img>
           <span className="number">{this.state.people}</span>
-          <img src={minusArr} className="arrow_counter" onClick={() => this.oneLess()}></img>
+          <img alt="arrow" src={minusArr} className="arrow_counter" onClick={() => this.oneLess()}></img>
         </div>
       </div>
     );

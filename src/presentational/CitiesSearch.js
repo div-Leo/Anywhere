@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './CitiesSearch.css';
 import x from '../icons/X.png'
 import animation from '../animation'
@@ -77,6 +76,7 @@ class CitiesSearch extends React.Component {
   render() {
     let cancel = !this.state.isEmpty ?
         <img
+          alt="close icon"
           src={x}
           className="cancel"
           onClick={() => {

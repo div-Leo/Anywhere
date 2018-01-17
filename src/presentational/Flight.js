@@ -15,10 +15,11 @@ class Flight extends React.Component {
   }
 
   getDelta(d, depart, obj) {
+    var startdate;
     if (depart) {
-      var startdate = moment(obj.depart_date + ':00Z');
+      startdate = moment(obj.depart_date + ':00Z');
     } else{
-      var startdate = moment(obj.return_date + ':00Z');
+      startdate = moment(obj.return_date + ':00Z');
     }
     var arrival = moment(startdate).add(Number(d[0]), 'h').add(Number(d[1]), 'm');
     return arrival.utc().format('H:mm');
@@ -47,7 +48,7 @@ class Flight extends React.Component {
           </div>
           <div className="flight_track">
             <span className="flight_track_duration" >{flightDuration[0] + 'h' + flightDuration[1] + 'm'}</span>
-            <img src={flightPathIcon} className="flight_path_icon"></img>
+            <img alt="flight Path Icon" src={flightPathIcon} className="flight_path_icon"></img>
           </div>
           <div className="flight_details_date">
             <span className="flight_details_hour" >{this.getDelta(flightDuration, true, obj)}</span>
@@ -66,7 +67,7 @@ class Flight extends React.Component {
           </div>
           <div className="flight_track">
             <span className="flight_track_duration" >{flightDuration[0] + 'h' + flightDuration[1] + 'm'}</span>
-            <img src={flightPathIcon} className="flight_path_icon"></img>
+            <img alt="flight Path Icon" src={flightPathIcon} className="flight_path_icon"></img>
           </div>
           <div className="flight_details_date">
             <span className="flight_details_hour">{this.getDelta(flightDuration, false, obj)}</span>
@@ -79,9 +80,11 @@ class Flight extends React.Component {
         <div className="flight_price">
           {obj.price} €
         </div>
-        <a onClick={() => this.props.updateData('destination', obj.city_name)} href='https://www.expedia.it/Flight-Information?continuationId=e8786ad7-4f95-4859-b149-7d73b69ae185&rfrr=&superlativeMessages[0]=BV,CP,ST&superlativeMessages[1]=BV,CP,ST&udpDisplayMode=showhotelbanneronly'
-         className="flight_book"
-         target="_blank" >
+        <a onClick={() => this.props.updateData('destination', obj.city_name)}
+          rel="noopener noreferrer"
+          href='https://www.expedia.it/Flight-Information?continuationId=e8786ad7-4f95-4859-b149-7d73b69ae185&rfrr=&superlativeMessages[0]=BV,CP,ST&superlativeMessages[1]=BV,CP,ST&udpDisplayMode=showhotelbanneronly'
+          className="flight_book"
+          target="_blank" >
           book
         </a>
       </div>
@@ -90,7 +93,6 @@ class Flight extends React.Component {
 
   componentWillUpdate(nextProps) {
    if (this.props.zState !== nextProps.zState) {
-     console.log('egolo');
      const arr = this.state.flights;
      animation.inMultiAnimation(arr);
    }
