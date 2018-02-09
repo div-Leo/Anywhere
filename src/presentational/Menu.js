@@ -32,7 +32,7 @@ const Menu = (props) => {
         </div>
         <div className='menu_container'>
           <div className='menu_heading'>
-            <div className='menu_heading_title'>Wherever</div>
+            <div className='menu_heading_title'>Anywhere</div>
             <div className='menu_heading_descr'>This is a place where you do don’t need to know
               where you want to go, but you just have
               to want to leave.</div>

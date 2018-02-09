@@ -82,7 +82,7 @@ class Flight extends React.Component {
         </div>
         <a onClick={() => this.props.updateData('destination', obj.city_name)}
           rel="noopener noreferrer"
-          href='https://www.expedia.it/Flight-Information?continuationId=e8786ad7-4f95-4859-b149-7d73b69ae185&rfrr=&superlativeMessages[0]=BV,CP,ST&superlativeMessages[1]=BV,CP,ST&udpDisplayMode=showhotelbanneronly'
+          href='https://www.expedia.it/Flight-Information?continuationId=990bbc99-270f-47b4-bff9-019b511444c2&rfrr=&superlativeMessages[0]=BV,CP,ST&superlativeMessages[1]=BV,CP,ST&udpDisplayMode=showhotelbanneronly'
           className="flight_book"
           target="_blank" >
           book

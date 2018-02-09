@@ -14,7 +14,7 @@ class App extends Component {
     super(props);
     this.state ={
       page: 0,
-      title: ['Wherever', 'Origin', 'Trip dates', 'Passanger', 'Destination'],
+      title: ['Anywhere', 'Origin', 'Trip dates', 'Passanger', 'Destination'],
       airport: null,
       worls: null,
       objDays: { going: {d:null, m:null}, return: {d:null, m:null} },
@@ -93,7 +93,7 @@ class App extends Component {
             open={this.state.menu}
             toggleMenu={this.toggleMenu}
             details={{
-                Home: 'Wherever ',
+                Home: 'Anywhere',
                 Origin:this.state.airport,
                 Dates: this.showDates(),
                 People: this.state.people,

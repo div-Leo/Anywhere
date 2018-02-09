@@ -31,7 +31,7 @@ const results = [
   },
   {
     "city_name": "Milan",
-    "price": 28.93,
+    "price": 31.93,
     "trip_class": 0,
     "show_to_affiliates": true,
     "return_date": "2018-01-22T07:15",
