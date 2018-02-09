@@ -14,7 +14,7 @@ class App extends Component {
     super(props);
     this.state ={
       page: 0,
-      title: ['Anywhere', 'Origin', 'Trip dates', 'Passanger', 'Destination'],
+      title: ['Anywhere', 'Origin', 'Trip dates', 'Passenger', 'Destination'],
       airport: null,
       worls: null,
       objDays: { going: {d:null, m:null}, return: {d:null, m:null} },
