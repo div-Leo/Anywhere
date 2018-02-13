@@ -6,8 +6,8 @@ Book the cheapest random flight with a all brand new navigation through the clou
 
 ## Project aim
 
-This is my first solo project from scratch done with React.js. I wanted to create a nice user experience to book flights with an alternative way to scroll on the page.
-In this portal you have to select the origin place, the dates and the number of passengers, then the api looks for the cheapest solution for you. The animation are done with Green Sock.
+I always wanted to create a nice user experience to book flights with an alternative way to scroll on the page.
+In this portal you have to select your origin, the dates and the number of passengers, then the api looks for the cheapest solution for you. The project is developed in React.JS and the animations are done with Green Sock.
 
 ## Steps
 
