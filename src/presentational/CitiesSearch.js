@@ -17,7 +17,7 @@ class CitiesSearch extends React.Component {
   searchQuery = debounceEvent((e) => {
     if (e.target.value.length > 0) {
       let url = 'https://api.sandbox.amadeus.com/v1.2/airports/autocomplete'
-      fetch(`${url}?apikey=AXnAAPJAjgaAEFsEGyYe6B9Qux1yQSZA&term=${e.target.value}`)
+      fetch(`${url}?apikey=FGjEkce1UJviEZnWyZUXvWeebyO53rt7&term=${e.target.value}`)
       .then(response => response.json())
       .then(data => {
         let newCities = [];
